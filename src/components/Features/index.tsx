@@ -22,7 +22,7 @@ interface CardProps {
   href: string;
 }
 
-const Card = ({ heading, description, icon, href }: CardProps) => {
+const Card = ({ heading, description, icon }: CardProps) => {
   return (
     <Box
       maxW={{ base: "full", md: "275px" }}
@@ -67,8 +67,9 @@ export default function gridListWith() {
           Easy Booking for Your Dental Need
         </Heading>
         <Text color={"gray.600"} fontSize={{ base: "sm", sm: "lg" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-          obcaecati ut cupiditate pariatur, dignissimos, placeat amet officiis.
+          Effortless Dental Appointments – Simplify your scheduling with our
+          easy booking platform. Your smile deserves the best care, conveniently
+          booked at your fingertips!
         </Text>
       </Stack>
 

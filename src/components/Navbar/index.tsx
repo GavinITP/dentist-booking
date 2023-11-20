@@ -19,6 +19,7 @@ import { MdLightMode, MdNightlightRound } from "react-icons/md";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import { Link } from "@chakra-ui/next-js";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -29,6 +30,7 @@ export default function Navbar() {
       borderStyle={"solid"}
       borderBottom={1}
       borderColor={useColorModeValue("gray.200", "gray.900")}
+      mb={0}
     >
       <Container maxW="container.xl">
         <Flex
@@ -64,15 +66,17 @@ export default function Navbar() {
             alignItems="center"
             justify={{ base: "center", md: "start" }}
           >
-            <Text
-              textAlign={useBreakpointValue({ base: "center", md: "left" })}
-              fontFamily={"heading"}
-              color={useColorModeValue("gray.800", "white")}
-              fontWeight={900}
-              fontSize="xl"
-            >
-              Logo
-            </Text>
+            <Link href={"/"} _hover={{ textDecoration: "none" }}>
+              <Text
+                textAlign={useBreakpointValue({ base: "center", md: "left" })}
+                fontFamily={"heading"}
+                color={useColorModeValue("gray.800", "white")}
+                fontWeight={900}
+                fontSize="xl"
+              >
+                DentBook
+              </Text>
+            </Link>
 
             <Flex display={{ base: "none", md: "flex" }} ml={10}>
               <DesktopNav />
@@ -83,20 +87,13 @@ export default function Navbar() {
             flex={{ base: 1, md: 0 }}
             justify={"flex-end"}
             direction={"row"}
-            spacing={6}
+            spacing={{ base: 0, sm: 6 }}
           >
-            {/* <IconButton
-              isRound={true}
-              variant="solid"
-              aria-label="toggle light mode"
-              onClick={toggleColorMode}
-              icon={<Icon as={MdLightMode} />}
-            /> */}
-
             <IconButton
               isRound={true}
               variant="solid"
               aria-label="toggle dark mode"
+              display={{ base: "none", md: "inline-flex" }}
               onClick={toggleColorMode}
               bg="transparent"
               icon={
