@@ -1,19 +1,35 @@
 "use client";
 
+import { Link } from "@chakra-ui/next-js";
 import {
   Heading,
   Avatar,
   Box,
   Center,
-  Image,
   Flex,
   Text,
   Stack,
   Button,
   useColorModeValue,
+  Icon,
 } from "@chakra-ui/react";
+import { MdLocationOn } from "react-icons/md";
 
-export default function DentistCard() {
+interface Props {
+  id: string;
+  name: string;
+  hospital: string;
+  expertist: string;
+  picture: string;
+}
+
+export default function DentistCard({
+  id,
+  name,
+  hospital,
+  expertist,
+  picture,
+}: Props) {
   return (
     <Center
       py={6}
@@ -25,6 +41,7 @@ export default function DentistCard() {
       <Box
         maxW={"270px"}
         w={"full"}
+        h="full"
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded={"md"}
@@ -32,10 +49,9 @@ export default function DentistCard() {
       >
         <Flex justify={"center"} mt={12}>
           <Avatar
+            name={name}
             size={"xl"}
-            src={
-              "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-            }
+            src={picture}
             css={{
               border: "2px solid white",
             }}
@@ -44,39 +60,34 @@ export default function DentistCard() {
 
         <Box p={6}>
           <Stack spacing={0} align={"center"} mb={5}>
-            <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
-              John Doe
+            <Heading fontSize={"xl"} fontWeight={500} fontFamily={"body"}>
+              {name}
             </Heading>
-            <Text color={"gray.500"}>Frontend Developer</Text>
+            <Text fontSize={"sm"} color={"gray.500"}>
+              {expertist}
+            </Text>
+            <Flex flexDirection="row" alignItems="center" mt={4} gap={1}>
+              <Icon as={MdLocationOn} />
+              <Text fontSize={"sm"} color={"gray.500"}>
+                {hospital}
+              </Text>
+            </Flex>
           </Stack>
 
-          <Stack direction={"row"} justify={"center"} spacing={6}>
-            <Stack spacing={0} align={"center"}>
-              <Text fontWeight={600}>23k</Text>
-              <Text fontSize={"sm"} color={"gray.500"}>
-                Followers
-              </Text>
-            </Stack>
-            <Stack spacing={0} align={"center"}>
-              <Text fontWeight={600}>23k</Text>
-              <Text fontSize={"sm"} color={"gray.500"}>
-                Followers
-              </Text>
-            </Stack>
-          </Stack>
-
-          <Button
-            w={"full"}
-            mt={8}
-            colorScheme="blue"
-            rounded={"md"}
-            _hover={{
-              transform: "translateY(-2px)",
-              boxShadow: "lg",
-            }}
-          >
-            Follow
-          </Button>
+          <Link href={`/dentists/${id}`}>
+            <Button
+              w={"full"}
+              mt={4}
+              colorScheme="blue"
+              rounded={"md"}
+              _hover={{
+                transform: "translateY(-2px)",
+                boxShadow: "lg",
+              }}
+            >
+              Choose
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Center>

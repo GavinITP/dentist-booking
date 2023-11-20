@@ -47,24 +47,24 @@ const server = app.listen(
   )
 );
 
-const swaggerOptions={
-  swaggerDefinition:{
-    openapi: '3.0.0',
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
     info: {
-    title: 'Library API',
-    version: '1.0.0',
-    description: 'Job Interview Booking API'
+      title: "Library API",
+      version: "1.0.0",
+      description: "Job Interview Booking API",
     },
     servers: [
       {
-        url: 'http://localhost:5000/api/v1'
-      }
+        url: "http://localhost:9000/api/v1",
+      },
     ],
   },
-  apis:['./routes/*.js'],
+  apis: ["./routes/*.js"],
 };
-const swaggerDocs=swaggerJsDoc(swaggerOptions);
-app.use('/api-docs',swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
