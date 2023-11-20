@@ -42,7 +42,7 @@ export default function CallToActionWithVideo() {
                 position: "absolute",
                 bottom: 1,
                 left: 0,
-                bg: "blue.100",
+                bg: useColorModeValue("blue.100", "slate.500"),
                 zIndex: -1,
               }}
             >

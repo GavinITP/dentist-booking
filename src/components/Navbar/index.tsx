@@ -12,13 +12,17 @@ import {
   useBreakpointValue,
   useDisclosure,
   Container,
+  useColorMode,
+  Icon,
 } from "@chakra-ui/react";
+import { MdLightMode, MdNightlightRound } from "react-icons/md";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box
@@ -81,6 +85,29 @@ export default function Navbar() {
             direction={"row"}
             spacing={6}
           >
+            {/* <IconButton
+              isRound={true}
+              variant="solid"
+              aria-label="toggle light mode"
+              onClick={toggleColorMode}
+              icon={<Icon as={MdLightMode} />}
+            /> */}
+
+            <IconButton
+              isRound={true}
+              variant="solid"
+              aria-label="toggle dark mode"
+              onClick={toggleColorMode}
+              bg="transparent"
+              icon={
+                colorMode === "light" ? (
+                  <Icon as={MdNightlightRound} boxSize={5} />
+                ) : (
+                  <Icon as={MdLightMode} boxSize={5} />
+                )
+              }
+            />
+
             <Button
               as={"a"}
               fontSize={"sm"}
