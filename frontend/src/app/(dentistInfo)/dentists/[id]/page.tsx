@@ -1,4 +1,4 @@
-import getDentist from "@/app/libs/getDentist";
+import getDentist from "@/libs/getDentist";
 import { Box, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 

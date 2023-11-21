@@ -1,7 +1,6 @@
 import DentistCard from "@/components/DentistCard";
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
-import getDentists from "@/app/libs/getDentists";
-import { Suspense } from "react";
+import getDentists from "@/libs/getDentists";
 
 export default async function Dentists() {
   const dentistsJson = await getDentists();

@@ -148,7 +148,7 @@ export default function Navbar() {
                   fontSize={"sm"}
                   fontWeight={600}
                   colorScheme="blue"
-                  href={"/api/auth/signup"}
+                  href={"/signup"}
                 >
                   Sign Up
                 </Button>
