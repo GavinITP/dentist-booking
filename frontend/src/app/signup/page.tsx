@@ -18,8 +18,8 @@ import {
 } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import registerUser from "@/libs/registerUser";
-import userLogin from "@/libs/userLogin";
+import registerUser from "@/libs/user/registerUser";
+import userLogin from "@/libs/user/userLogin";
 import { useRouter } from "next/navigation";
 
 export default function SignupCard() {
