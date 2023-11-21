@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "@chakra-ui/next-js";
 import {
   Container,
   Stack,
@@ -58,15 +59,17 @@ export default function CallToActionWithVideo() {
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}
           >
-            <Button
-              rounded={"full"}
-              size={"lg"}
-              fontWeight={"bold"}
-              px={6}
-              colorScheme={"blue"}
-            >
-              Book Now
-            </Button>
+            <Link href="/dentists">
+              <Button
+                rounded={"full"}
+                size={"lg"}
+                fontWeight={"bold"}
+                px={6}
+                colorScheme={"blue"}
+              >
+                Book Now
+              </Button>
+            </Link>
           </Stack>
         </Stack>
         <Flex

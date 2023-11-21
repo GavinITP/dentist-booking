@@ -21,9 +21,13 @@ import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { Link } from "@chakra-ui/next-js";
 
+import { useSession } from "next-auth/react";
+
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const { data: session } = useSession();
 
   return (
     <Box
@@ -105,25 +109,51 @@ export default function Navbar() {
               }
             />
 
-            <Button
-              as={"a"}
-              fontSize={"sm"}
-              fontWeight={400}
-              variant={"link"}
-              href={"#"}
-            >
-              Sign In
-            </Button>
-            <Button
-              as={"a"}
-              display={{ base: "none", md: "inline-flex" }}
-              fontSize={"sm"}
-              fontWeight={600}
-              colorScheme="blue"
-              href={"#"}
-            >
-              Sign Up
-            </Button>
+            {session ? (
+              <>
+                <Flex alignItems="center" gap={8}>
+                  <Text
+                    fontSize="sm"
+                    fontWeight="bold"
+                    noOfLines={1}
+                    whiteSpace="nowrap"
+                  >
+                    Welcome, {session.user?.name}
+                  </Text>
+                  <Button
+                    as={"a"}
+                    fontSize={"sm"}
+                    fontWeight={400}
+                    variant={"link"}
+                    href={"/api/auth/signout"}
+                  >
+                    Sign Out
+                  </Button>
+                </Flex>
+              </>
+            ) : (
+              <>
+                <Button
+                  as={"a"}
+                  fontSize={"sm"}
+                  fontWeight={400}
+                  variant={"link"}
+                  href={"/api/auth/signin"}
+                >
+                  Sign In
+                </Button>
+                <Button
+                  as={"a"}
+                  display={{ base: "none", md: "inline-flex" }}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  colorScheme="blue"
+                  href={"/api/auth/signup"}
+                >
+                  Sign Up
+                </Button>
+              </>
+            )}
           </Stack>
         </Flex>
       </Container>
