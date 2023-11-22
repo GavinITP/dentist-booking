@@ -113,7 +113,6 @@ const BookingCard = ({
                 minute: "numeric",
                 second: "numeric",
                 hour12: false,
-                timeZone: "UTC",
               })}
             </Text>
           </Box>
