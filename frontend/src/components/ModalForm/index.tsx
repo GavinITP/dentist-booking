@@ -18,6 +18,8 @@ import {
 import { useSession } from "next-auth/react";
 import { useRef, useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 export default function ModalForm() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -32,6 +34,8 @@ export default function ModalForm() {
   const [picture, setPicture] = useState("");
 
   const { data: session } = useSession();
+
+  const router = useRouter();
 
   return (
     <>
@@ -118,6 +122,9 @@ export default function ModalForm() {
                   tel,
                   picture,
                 });
+
+                router.refresh();
+                onClose();
               }}
             >
               Submit
