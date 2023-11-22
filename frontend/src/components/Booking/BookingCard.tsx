@@ -8,6 +8,9 @@ import {
   Box,
   Text,
   useColorModeValue,
+  CardFooter,
+  Button,
+  ButtonGroup,
 } from "@chakra-ui/react";
 
 const BookingCard = ({
@@ -72,6 +75,15 @@ const BookingCard = ({
           </Box>
         </Stack>
       </CardBody>
+
+      <CardFooter>
+        <ButtonGroup spacing="6" mx="auto">
+          <Button colorScheme="blue" variant="outline">
+            Edit
+          </Button>
+          <Button colorScheme="red">Delete</Button>
+        </ButtonGroup>
+      </CardFooter>
     </Card>
   );
 };
