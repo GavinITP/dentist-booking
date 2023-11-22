@@ -10,8 +10,17 @@ import {
   Flex,
   Heading,
   Input,
+  Link,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   SimpleGrid,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
@@ -24,7 +33,10 @@ const DentistInfo = ({ params, dentistData }: any) => {
   const [date, setDate] = useState("");
   const router = useRouter();
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const handleBookingClick = async () => {
+    if (!session) onOpen();
     await createBooking(session?.user.token, params.id, {
       bookingDate: date,
     });
@@ -98,6 +110,24 @@ const DentistInfo = ({ params, dentistData }: any) => {
           </Flex>
         </Flex>
       </SimpleGrid>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Please Sign in</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody></ModalBody>
+
+          <ModalFooter>
+            <Button mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Link href="/api/auth/signin">
+              <Button colorScheme="blue">Sign in</Button>
+            </Link>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Container>
   );
 };
