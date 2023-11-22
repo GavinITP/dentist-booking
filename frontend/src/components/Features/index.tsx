@@ -66,7 +66,7 @@ export default function gridListWith() {
         <Heading fontSize={{ base: "2xl", sm: "4xl" }} fontWeight={"bold"}>
           Easy Booking for Your Dental Need
         </Heading>
-        <Text color={"gray.600"} fontSize={{ base: "sm", sm: "lg" }}>
+        <Text color={"gray.500"} fontSize={{ base: "sm", md: "lg" }}>
           Effortless Dental Appointments – Simplify your scheduling with our
           easy booking platform. Your smile deserves the best care, conveniently
           booked at your fingertips!
