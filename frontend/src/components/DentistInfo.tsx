@@ -1,3 +1,7 @@
+"use client";
+
+import createBooking from "@/libs/booking/createBooking";
+
 import {
   Box,
   Button,
@@ -10,20 +14,17 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
-import createBooking from "@/libs/booking/createBooking";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
-const Dentist = ({
-  session,
-  dentistData,
-}: {
-  session: any;
-  dentistData: any;
-}) => {
+const DentistInfo = ({ params, dentistData }: any) => {
+  const { data: session } = useSession();
+
+  const [date, setDate] = useState("");
+
   const handleBookingClick = async () => {
-    await createBooking(session, params.id, {
-      bookingDate: "",
+    await createBooking(session?.user.token, params.id, {
+      bookingDate: date,
     });
   };
 
@@ -57,7 +58,7 @@ const Dentist = ({
 
             <Box>
               <Heading fontSize="xl">Expertise</Heading>
-              <Text>{dentistData.expertise}</Text>
+              <Text>{dentistData.expertist}</Text>
             </Box>
           </SimpleGrid>
 
@@ -79,7 +80,7 @@ const Dentist = ({
             <Text fontSize="md" fontWeight={700}>
               Select your booking date
             </Text>
-            <Input type="date" />
+            <Input type="date" onChange={(e) => setDate(e.target.value)} />
             <Button
               colorScheme="blue"
               variant="outline"
@@ -94,4 +95,4 @@ const Dentist = ({
   );
 };
 
-export default Dentist;
+export default DentistInfo;
