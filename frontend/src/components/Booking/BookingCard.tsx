@@ -14,6 +14,7 @@ import {
   CardFooter,
   Button,
   ButtonGroup,
+  Divider,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -41,7 +42,7 @@ const BookingCard = ({
   return (
     <Card textAlign={"center"} maxW={"500px"} mx="auto">
       <CardBody>
-        <Stack divider={<StackDivider />} spacing="4">
+        <Stack divider={<Divider />} spacing="4">
           {isAdmin ? (
             <Box>
               <Heading size="xs" textTransform="uppercase">
@@ -85,7 +86,16 @@ const BookingCard = ({
               Booking Date
             </Heading>
             <Text pt="2" fontSize="sm">
-              {bookingDate}
+              {new Date(bookingDate).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "numeric",
+                second: "numeric",
+                hour12: false,
+                timeZone: "UTC",
+              })}
             </Text>
           </Box>
         </Stack>

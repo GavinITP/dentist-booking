@@ -84,7 +84,10 @@ const DentistInfo = ({ params, dentistData }: any) => {
             <Text fontSize="md" fontWeight={700}>
               Select your booking date
             </Text>
-            <Input type="date" onChange={(e) => setDate(e.target.value)} />
+            <Input
+              type="datetime-local"
+              onChange={(e) => setDate(e.target.value)}
+            />
             <Button
               colorScheme="blue"
               variant="outline"

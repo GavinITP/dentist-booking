@@ -1,5 +1,5 @@
-import DentistCard from "@/components/DentistCard";
-import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
+import DentistCard from "@/components/Dentist/DentistCard";
+import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 
 import getDentists from "@/libs/dentist/getDentists";
 
@@ -12,6 +12,22 @@ export default async function Dentists() {
   const dentistsData = dentistsJson.data;
 
   const session = await getServerSession(authOptions);
+
+  if (dentistsData.length === 0 || !dentistsData) {
+    return (
+      <Box textAlign={"center"}>
+        <Heading
+          fontSize={{ base: "2xl", sm: "4xl" }}
+          fontWeight={"extrabold"}
+          mt={16}
+        >
+          Discover Top Dentists Near You
+        </Heading>
+
+        <Text mt={12}>No Dentist Available</Text>
+      </Box>
+    );
+  }
 
   return (
     <Box textAlign={"center"}>

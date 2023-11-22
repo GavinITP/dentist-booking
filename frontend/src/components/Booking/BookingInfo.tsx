@@ -21,6 +21,14 @@ const MyBooking = ({ bookingsData, isAdmin }: any) => {
   ) {
     return (
       <Box textAlign="center">
+        <Heading
+          fontSize={{ base: "2xl", sm: "4xl" }}
+          fontWeight={"extrabold"}
+          my={16}
+        >
+          Booking List
+        </Heading>
+
         <Text>No bookings available.</Text>
       </Box>
     );
@@ -33,7 +41,7 @@ const MyBooking = ({ bookingsData, isAdmin }: any) => {
         fontWeight={"extrabold"}
         my={16}
       >
-        My Booking
+        Booking List
       </Heading>
 
       {bookingsData.map((data: any) => {

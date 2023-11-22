@@ -1,6 +1,6 @@
 import getDentist from "@/libs/dentist/getDentist";
 
-import DentistInfo from "../../../../components/DentistInfo";
+import DentistInfo from "../../../../components/Dentist/DentistInfo";
 
 const Dentist = async ({ params }: { params: { id: string } }) => {
   const dentistJson = await getDentist(params.id);
