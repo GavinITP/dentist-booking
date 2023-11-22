@@ -1,5 +1,6 @@
 "use client";
 
+import deleteDentist from "@/libs/dentist/deleteDentist";
 import { Link } from "@chakra-ui/next-js";
 import {
   Heading,
@@ -12,8 +13,13 @@ import {
   Button,
   useColorModeValue,
   Icon,
+  IconButton,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { MdLocationOn } from "react-icons/md";
+
+import { TiDelete } from "react-icons/ti";
 
 interface Props {
   id: string;
@@ -30,6 +36,9 @@ export default function DentistCard({
   expertist,
   picture,
 }: Props) {
+  const { data: session } = useSession();
+  const router = useRouter();
+
   return (
     <Center
       py={6}
@@ -47,7 +56,23 @@ export default function DentistCard({
         rounded={"md"}
         overflow={"hidden"}
       >
-        <Flex justify={"center"} mt={12}>
+        <Flex justifyContent="flex-end">
+          {session?.user.name === "staff" || session?.user.role === "admin" ? (
+            <IconButton
+              aria-label={"delete"}
+              icon={<Icon as={TiDelete} boxSize={8} />}
+              color="red.500"
+              variant="ghost"
+              onClick={async () => {
+                await deleteDentist(session?.user.token, id);
+
+                router.refresh();
+              }}
+            />
+          ) : null}
+        </Flex>
+
+        <Flex justify={"center"}>
           <Avatar
             name={name}
             size={"xl"}

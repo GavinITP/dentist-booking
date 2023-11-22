@@ -1,5 +1,6 @@
 import DentistCard from "@/components/DentistCard";
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
+
 import getDentists from "@/libs/dentist/getDentists";
 
 import { getServerSession } from "next-auth";
