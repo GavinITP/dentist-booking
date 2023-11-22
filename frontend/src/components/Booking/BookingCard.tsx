@@ -1,6 +1,7 @@
 "use client";
 
 import deleteBooking from "@/libs/booking/deleteBooking";
+import updateBooking from "@/libs/booking/updateBooking";
 import {
   Card,
   CardHeader,
@@ -15,9 +16,22 @@ import {
   Button,
   ButtonGroup,
   Divider,
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const BookingCard = ({
   user,
@@ -39,6 +53,11 @@ const BookingCard = ({
 
     router.refresh();
   };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [newBookingDate, setNewBookingDate] = useState("");
+
   return (
     <Card textAlign={"center"} maxW={"500px"} mx="auto">
       <CardBody>
@@ -103,13 +122,52 @@ const BookingCard = ({
 
       <CardFooter>
         <ButtonGroup spacing="6" mx="auto">
-          <Button colorScheme="blue" variant="outline">
-            Edit
-          </Button>
+          <Button onClick={onOpen}>Edit</Button>
           <Button colorScheme="red" onClick={handleDelete}>
             Delete
           </Button>
         </ButtonGroup>
+
+        <>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>New Booking Date</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <FormControl>
+                  <FormLabel>Date</FormLabel>
+                  <Input
+                    type="datetime-local"
+                    onChange={(e) => {
+                      setNewBookingDate(e.target.value);
+                    }}
+                  />
+                  <FormHelperText>Enter new booking date.</FormHelperText>
+                </FormControl>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button variant="ghost" mr={3} onClick={onClose}>
+                  Close
+                </Button>
+                <Button
+                  colorScheme="blue"
+                  onClick={async () => {
+                    await updateBooking(session?.user.token, bookingId, {
+                      bookingDate: newBookingDate,
+                    });
+
+                    router.refresh();
+                    onClose();
+                  }}
+                >
+                  Update
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </>
       </CardFooter>
     </Card>
   );
