@@ -1,3 +1,6 @@
+"use client";
+
+import deleteBooking from "@/libs/booking/deleteBooking";
 import {
   Card,
   CardHeader,
@@ -12,6 +15,8 @@ import {
   Button,
   ButtonGroup,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const BookingCard = ({
   user,
@@ -20,11 +25,21 @@ const BookingCard = ({
   dTel,
   bookingDate,
   isAdmin,
+  bookingId,
 }: any) => {
+  const { data: session } = useSession();
+
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    isAdmin
+      ? await deleteBooking(session?.user.token, bookingId)
+      : await deleteBooking(session?.user.token, bookingId);
+
+    router.refresh();
+  };
   return (
     <Card textAlign={"center"} maxW={"500px"} mx="auto">
-      <CardHeader></CardHeader>
-
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
           {isAdmin ? (
@@ -33,7 +48,7 @@ const BookingCard = ({
                 User Name:
               </Heading>
               <Text pt="2" fontSize="sm">
-                {user}
+                {user.name}
               </Text>
             </Box>
           ) : null}
@@ -81,7 +96,9 @@ const BookingCard = ({
           <Button colorScheme="blue" variant="outline">
             Edit
           </Button>
-          <Button colorScheme="red">Delete</Button>
+          <Button colorScheme="red" onClick={handleDelete}>
+            Delete
+          </Button>
         </ButtonGroup>
       </CardFooter>
     </Card>

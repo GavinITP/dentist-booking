@@ -44,12 +44,13 @@ const MyBooking = ({ bookingsData, isAdmin }: any) => {
         return (
           <Box key={_id} my={8}>
             <BookingCard
-              user={isAdmin ? user.name : user}
+              user={user}
               dName={dName}
               dAddress={dAddress}
               dTel={dTel}
               bookingDate={bookingDate}
               isAdmin={isAdmin}
+              bookingId={_id}
             />
           </Box>
         );
