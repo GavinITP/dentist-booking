@@ -15,17 +15,21 @@ import {
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const DentistInfo = ({ params, dentistData }: any) => {
   const { data: session } = useSession();
 
   const [date, setDate] = useState("");
+  const router = useRouter();
 
   const handleBookingClick = async () => {
     await createBooking(session?.user.token, params.id, {
       bookingDate: date,
     });
+
+    router.push("/mybooking");
   };
 
   return (

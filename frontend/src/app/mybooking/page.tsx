@@ -1,16 +1,23 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import getBookings from "@/libs/booking/getBookings";
+import BookingInfo from "@/components/Booking/BookingInfo";
 
-const MyBooking = () => {
+const MyBooking = async () => {
+  const session = await getServerSession(authOptions);
+
+  const bookingsJson = await getBookings(session?.user.token);
+  const bookingsData = bookingsJson.data;
+
   return (
-    <Box textAlign={"center"}>
-      <Heading
-        fontSize={{ base: "2xl", sm: "4xl" }}
-        fontWeight={"extrabold"}
-        my={16}
-      >
-        My Booking
-      </Heading>
-    </Box>
+    <BookingInfo
+      bookingsData={bookingsData}
+      isAdmin={
+        session?.user.name === "staff" || session?.user.role === "admin"
+          ? true
+          : false
+      }
+    />
   );
 };
 
