@@ -1,13 +1,10 @@
 import DentistCard from "@/components/DentistCard";
-import { Box, Button, Heading, Modal, SimpleGrid } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import getDentists from "@/libs/dentist/getDentists";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import PopoverForm from "@/components/ModalForm";
 import ModalForm from "@/components/ModalForm";
-import createDentist, { DentistProps } from "@/libs/dentist/createDentist";
-import { useState } from "react";
 
 export default async function Dentists() {
   const dentistsJson = await getDentists();
