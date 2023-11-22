@@ -54,11 +54,13 @@ export default function DentistCard({
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded={"md"}
+        pt={8}
         overflow={"hidden"}
       >
         <Flex justifyContent="flex-end">
           {session?.user.name === "staff" || session?.user.role === "admin" ? (
             <IconButton
+              mt={-8}
               aria-label={"delete"}
               icon={<Icon as={TiDelete} boxSize={8} />}
               color="red.500"
