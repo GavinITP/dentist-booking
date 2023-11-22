@@ -1,10 +1,17 @@
 import DentistCard from "@/components/DentistCard";
-import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, Heading, SimpleGrid } from "@chakra-ui/react";
 import getDentists from "@/libs/dentist/getDentists";
+
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function Dentists() {
   const dentistsJson = await getDentists();
   const dentistsData = dentistsJson.data;
+
+  const session = await getServerSession(authOptions);
+
+  console.log(session?.user.role);
 
   return (
     <Box textAlign={"center"}>
@@ -15,6 +22,10 @@ export default async function Dentists() {
       >
         Discover Top Dentists Near You
       </Heading>
+
+      {session?.user.role === "admin" ? (
+        <Button mt={12}>Create Dentists Profile</Button>
+      ) : null}
 
       <SimpleGrid
         columns={{ base: 1, md: 2, xl: 3 }}

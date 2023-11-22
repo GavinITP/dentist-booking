@@ -124,7 +124,8 @@ export default function Navbar() {
                     as={"a"}
                     fontSize={"sm"}
                     fontWeight={400}
-                    variant={"link"}
+                    colorScheme="red"
+                    variant={"solid"}
                     href={"/api/auth/signout"}
                   >
                     Sign Out
