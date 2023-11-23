@@ -7,7 +7,6 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
@@ -24,32 +23,69 @@ import { useRouter } from "next/navigation";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
-
   const [name, setName] = useState<string>("");
   const [tel, setTel] = useState<string>("");
+  const [telError, setTelError] = useState<string | null>(null);
   const [email, setEmail] = useState<string>("");
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [password, setPassword] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
   const handleTelChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTel(event.target.value);
+    const telValue = event.target.value;
+    setTel(telValue);
+
+    const telRegex = /^\d{10}$/;
+    if (!telRegex.test(telValue)) {
+      setTelError("Please enter a valid 10-digit telephone number");
+    } else {
+      setTelError(null);
+    }
   };
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    const emailValue = event.target.value;
+    setEmail(emailValue);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailValue)) {
+      setEmailError("Please enter a valid email address");
+    } else {
+      setEmailError(null);
+    }
   };
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
+    const passwordValue = event.target.value;
+    setPassword(passwordValue);
 
-  const router = useRouter();
+    // Password validation (minimum 8 characters)
+    if (passwordValue.length < 8) {
+      setPasswordError("Password must be at least 8 characters long");
+    } else {
+      setPasswordError(null);
+    }
+  };
 
   const handleSubmit = async () => {
     try {
+      if (!name || !tel || !email || !password) {
+        setError("All fields are required");
+        return;
+      }
+
+      if (telError || emailError || passwordError) {
+        setError("Please fix the validation errors");
+        return;
+      }
+
       await registerUser({
         name,
         email,
@@ -80,6 +116,11 @@ export default function SignupCard() {
           w={{ base: "90%", md: "400px" }}
         >
           <Stack spacing={4}>
+            {error && (
+              <Text color="red.500" fontSize="sm">
+                {error}
+              </Text>
+            )}
             <FormControl id="name" isRequired>
               <FormLabel>Name</FormLabel>
               <Input type="text" onChange={handleNameChange} />
@@ -87,10 +128,20 @@ export default function SignupCard() {
             <FormControl id="tel" isRequired>
               <FormLabel>Tel.</FormLabel>
               <Input type="tel" onChange={handleTelChange} />
+              {telError && (
+                <Text color="red.500" fontSize="sm">
+                  {telError}
+                </Text>
+              )}
             </FormControl>
             <FormControl id="email" isRequired>
               <FormLabel>Email</FormLabel>
               <Input type="email" onChange={handleEmailChange} />
+              {emailError && (
+                <Text color="red.500" fontSize="sm">
+                  {emailError}
+                </Text>
+              )}
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
@@ -110,6 +161,11 @@ export default function SignupCard() {
                   </Button>
                 </InputRightElement>
               </InputGroup>
+              {passwordError && (
+                <Text color="red.500" fontSize="sm">
+                  {passwordError}
+                </Text>
+              )}
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button

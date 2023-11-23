@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { MdLocationOn } from "react-icons/md";
 
 import { TiDelete } from "react-icons/ti";
+import EditDentist from "./EditDentist";
 
 interface Props {
   id: string;
@@ -27,6 +28,7 @@ interface Props {
   hospital: string;
   expertist: string;
   picture: string;
+  isAdmin: boolean;
 }
 
 export default function DentistCard({
@@ -35,6 +37,7 @@ export default function DentistCard({
   hospital,
   expertist,
   picture,
+  isAdmin,
 }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
@@ -115,6 +118,7 @@ export default function DentistCard({
               Choose
             </Button>
           </Link>
+          {isAdmin ? <EditDentist id={id} /> : null}
         </Box>
       </Box>
     </Center>

@@ -1,4 +1,4 @@
-export default async function deleteBooking(
+export default async function updateBooking(
   token: string | undefined,
   id: string,
   { bookingDate }: { bookingDate: string }
@@ -15,7 +15,7 @@ export default async function deleteBooking(
   });
 
   if (!res.ok) {
-    throw new Error("Failed to update dentist profile");
+    throw new Error("Failed to update booking");
   }
 
   return await res.json();

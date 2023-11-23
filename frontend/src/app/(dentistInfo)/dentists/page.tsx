@@ -57,6 +57,11 @@ export default async function Dentists() {
             hospital={hospital}
             expertist={expertist}
             picture={picture}
+            isAdmin={
+              session?.user.name === "staff" || session?.user.role === "admin"
+                ? true
+                : false
+            }
           />
         ))}{" "}
       </SimpleGrid>
